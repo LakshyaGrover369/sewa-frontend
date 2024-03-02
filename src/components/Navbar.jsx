@@ -6,7 +6,7 @@ const Navbar = () => {
   const [isLoggedIn,setLoggedIn]=useState(false);
   useEffect(() => {
 		const sewaString = localStorage.getItem('sewa');
-		if(sewaString) setLoggedIn(true);
+		if(sewaString){ setLoggedIn(true);}
 	}, [])
 	
   const handleLogout = () => {

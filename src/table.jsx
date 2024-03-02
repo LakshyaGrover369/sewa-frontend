@@ -6,7 +6,7 @@ const API_URL = `${process.env.REACT_APP_BASE_URL}/api/user/alluser`;
 const PER_PAGE = 10;
 const filterOptions = [
   { label: "No Filter", value: "" },
-  { label: "Filter by Earphone", value: "earphone" },
+  { label: "Filter by Earphone", value: "earphoneid" },
   { label: "Filter by Charger ID", value: "chargerid" },
   { label: "Filter by Set ID", value: "setid" },
 ];
@@ -119,7 +119,7 @@ export default function App() {
               <td style={{background:"none"}}>{user.name}</td>
               <td style={{background:"none"}}>{user.setid === "0000" ? "NA" : user.setid}</td>
               <td style={{background:"none"}}>{user.chargerid === "0000" ? "NA" : user.chargerid}</td>
-              <td style={{background:"none"}}>{user.earphone ? "Yes" : "No"}</td>
+              <td style={{background:"none"}}>{user.earphoneid === "0000" ? "NA" : user.earphoneid}</td>
              {admin && <td style={{background:"none"}}><ReturnModal users={users} setUsers={setUsers} user={user} /></td> }
 
             </tr>

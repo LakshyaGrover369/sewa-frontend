@@ -8,11 +8,11 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function ReturnModal({ user, users, setUsers }) {
   const phone = useMediaQuery('(max-width:472px)');
-  const { name, setid, chargerid, earphone, _id } = user;
+  const { name, setid, chargerid, earphoneid, _id } = user;
   const [open, setOpen] = useState(false);
   const [returnSetId, setSetId] = useState("");
   const [returnChargerId, setChargerId] = useState("");
-  const [returnEarphone, setEarphone] = useState(false);
+  const [returnEarphoneId, setReturnEarphoneId] = useState("");
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -21,10 +21,12 @@ export default function ReturnModal({ user, users, setUsers }) {
     e.preventDefault();
     try {
       const url=  `${process.env.REACT_APP_BASE_URL}/api/user/return`
-      const dataObj = { userid: _id, returnSetId, returnChargerId, returnEarphone };
+      const dataObj = { userid: _id, returnSetId, returnChargerId, returnEarphoneId };
+      console.log('dataobj =>' + dataObj)
       const { data } = await axios.post(url,
         dataObj
-      );
+        );
+        console.log('data =>' +data)
 
       
       if (data?.deleted && data.deleted === true) {
@@ -40,7 +42,7 @@ export default function ReturnModal({ user, users, setUsers }) {
 
       setChargerId("");
       setSetId("");
-      setEarphone(false);
+      setReturnEarphoneId(""); 
       handleClose();
       toast.success("returned successfully!")
 
@@ -84,13 +86,10 @@ export default function ReturnModal({ user, users, setUsers }) {
                 <input type="text" onChange={(e) => setChargerId(e.target.value)} placeholder='Enter the returning charger id' />
               </div>
             }
-            {earphone &&
+            {earphoneid !== "0000"  &&
               <div className="form-item">
-                <p>Returning Earphone</p>
-                <div className="flex">
-                  <span className={returnEarphone ? "gradient small_btn" : "grey_bg small_btn"} onClick={() => setEarphone(true)}>yes</span>
-                  <span className={returnEarphone === false ? "gradient small_btn" : "grey_bg small_btn"} onClick={() => setEarphone(false)}>no</span>
-                </div>
+                <p>Earphone Id</p>
+                <input type="text" onChange={(e) => setReturnEarphoneId(e.target.value)} placeholder='Enter the returning Earphone id' />
               </div>
             }
             <button type='submit ' className='gradient'>Confirm Return </button>

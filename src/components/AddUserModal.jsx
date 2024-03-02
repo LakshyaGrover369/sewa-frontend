@@ -11,24 +11,25 @@ export default function AddUserModal({users,setUsers}) {
   const [name, setName] = useState("");
   const [setid, setSetId] = useState("");
   const [chargerid, setChargerId] = useState("");
-  const [earphone,setEarphone]=useState(false);
+  const [earphoneid,setEarphoneid]=useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-     const dataObj={name,setid,chargerid,earphone};
+     const dataObj={name,setid,chargerid,earphoneid};
      const url=`${process.env.REACT_APP_BASE_URL}/api/user/adduser`
-      const {data}=await axios.post(url,
-      dataObj
-      );
+     console.log(dataObj);
+     const {data}=await axios.post(url,dataObj);
+     console.log(data);
+
     const newUserData=[data,...users];
     setUsers(newUserData);   
     setName("");
     setChargerId("");
     setSetId("");
-    setEarphone(false);
+    setEarphoneid(""); 
     handleClose();
     toast.success("data added successfully!")
 
@@ -63,11 +64,12 @@ export default function AddUserModal({users,setUsers}) {
               <input type="text" value={chargerid} onChange={(e) => setChargerId(e.target.value)} placeholder='Enter the charger id' />
             </div>
             <div className="form-item">
-              <p>Give Earphone</p>
-              <div className="flex">
+              <p>Earphone Id</p>
+              {/* <div className="flex">
             <span className={earphone?"gradient small_btn":"grey_bg small_btn"} onClick={()=>setEarphone(true)}>yes</span>
             <span className={earphone===false?"gradient small_btn":"grey_bg small_btn"} onClick={()=>setEarphone(false)}>no</span>
-            </div>
+            </div> */}
+              <input type="text" value={earphoneid} onChange={(e) => setEarphoneid(e.target.value)} placeholder='Enter the earphone id' />
             </div>
             <button className='gradient' type='submit'>Add user</button>
           </FormContainer>
